@@ -1,1 +1,10 @@
+# Repo artifacts
 .github/**
+build
+cmake-build-debug
+
+#System files
+.DS_Store
+
+#IDE files
+.idea
