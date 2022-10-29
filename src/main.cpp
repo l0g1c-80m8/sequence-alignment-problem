@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "parse_file.h"
+#include "basic.h"
 
 int main(int argc, char *argv[]) {
     if(argc < 2) {
@@ -13,6 +14,7 @@ int main(int argc, char *argv[]) {
 
     std::cout << "Base pair 1: " << base_pairs[0] << std::endl;
     std::cout << "Base pair 2: " << base_pairs[1] << std::endl;
+    std::cout << sequence_alignment_basic(base_pairs[0], base_pairs[1]) << std::endl;
 
     delete[](base_pairs);
     return 0;
