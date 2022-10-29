@@ -7,6 +7,6 @@
 
 #include <string>
 
-int sequence_alignment_basic(std::string seq1, std::string seq2);
+std::tuple<int, std::string, std::string> sequence_alignment_basic(std::string seq1, std::string seq2);
 
 #endif //SEQ_BASIC_H
