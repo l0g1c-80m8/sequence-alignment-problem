@@ -1,7 +1,7 @@
 #include <iostream>
 
-#include "parse_file.h"
 #include "basic.h"
+#include "parse_file.h"
 
 int main(int argc, char *argv[]) {
     if(argc < 2) {
