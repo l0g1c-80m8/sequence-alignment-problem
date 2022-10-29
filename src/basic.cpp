@@ -14,7 +14,7 @@
  *
  * @param seq1 Gene sequence 1 as string.
  * @param seq2 Gene sequence 2 as string.
- * @return the minimum cost of an alignment.
+ * @return the minimum cost of an alignment with the aligned sequences as a 3-tuple.
  */
 std::tuple<int, std::string, std::string> sequence_alignment_basic(std::string seq1, std::string seq2) {
     // Get sizes of the two string sequences
