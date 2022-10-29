@@ -39,7 +39,7 @@ std::tuple<int, std::string, std::string> sequence_alignment_basic(std::string s
                 dp[i][j - 1] + gap_penalty
             });
 
-     // Backtrack through the sub-problems and construct the solution strings
+    // Backtrack through the sub-problems and construct the solution strings
     auto i = m;
     auto j = n;
     std::vector<char> aligned_seq1;
