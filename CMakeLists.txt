@@ -7,4 +7,8 @@ set(CMAKE_CXX_FLAGS, "${CXX_FLAGS}")
 
 project(seq)
 
-add_executable(seq src/main.cpp src/parse_file.cpp src/parse_file.h)
+# Find all executables
+file(GLOB project_SRCS src/*.cpp) #src/*.h
+
+# Add project executable
+add_executable(seq ${project_SRCS})
