@@ -52,14 +52,14 @@ std::tuple<int, std::string, std::string> sequence_alignment_basic(std::string s
             aligned_seq2.insert(aligned_seq2.begin(), seq2.at(j - 1));
             i -= 1;
             j -= 1;
-        } else if (dp[i][j] == dp[i - 1][j] + gap_penalty) {
-            aligned_seq1.insert(aligned_seq1.begin(), seq1.at(i - 1));
-            aligned_seq2.insert(aligned_seq2.begin(), '_');
-            i -= 1;
         } else if (dp[i][j] == dp[i][j - 1] + gap_penalty) {
             aligned_seq1.insert(aligned_seq1.begin(), '_');
             aligned_seq2.insert(aligned_seq2.begin(), seq2.at(j - 1));
             j -= 1;
+        } else if (dp[i][j] == dp[i - 1][j] + gap_penalty) {
+            aligned_seq1.insert(aligned_seq1.begin(), seq1.at(i - 1));
+            aligned_seq2.insert(aligned_seq2.begin(), '_');
+            i -= 1;
         }
     }
 
