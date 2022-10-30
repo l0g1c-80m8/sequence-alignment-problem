@@ -2,6 +2,7 @@
 // Created by Rutvik Patel on 10/29/22.
 //
 
+#include <algorithm>
 #include <string>
 #include <tuple>
 #include <vector>
