@@ -1,7 +1,7 @@
 #include "parse_file.h"
 #include <fstream>
 
-void read_parse_file(std::string path, std::string base_pairs[2]) {
+void read_parse_file(const std::string& path, std::string base_pairs[2]) {
     std::ifstream is;
     int currBasePairIdx = 0;
     int idx;
