@@ -13,7 +13,7 @@ extern int errno;
 
 // getrusage() is available in linux. Your code will be evaluated in Linux OS.
 long getTotalMemory() {
-    struct rusage usage;
+    struct rusage usage{};
     int returnCode = getrusage(RUSAGE_SELF, &usage);
     if (returnCode == 0) {
         return usage.ru_maxrss;
@@ -25,9 +25,9 @@ long getTotalMemory() {
 }
 
 double getExecTime(struct timeval ts1, struct timeval ts2) {
-    double seconds = ts2.tv_sec - ts1.tv_sec;
-    double microseconds = ts2.tv_usec - ts1.tv_usec;
-    return seconds * 1000 + microseconds * 1e-3;
+    long seconds = ts2.tv_sec - ts1.tv_sec;
+    long microseconds = ts2.tv_usec - ts1.tv_usec;
+    return (double) seconds * 1000 + (double) microseconds * 1e-3;
 }
 
 #endif //SEQ_PERF_MEASURE_H

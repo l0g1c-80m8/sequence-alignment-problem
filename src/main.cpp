@@ -13,8 +13,8 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    struct timeval begin, end; // store end and start time of execution
-    gettimeofday(&begin, 0); // mark start time of execution
+    struct timeval begin{}, end{}; // store end and start time of execution
+    gettimeofday(&begin, nullptr); // mark start time of execution
 
     auto base_pairs = new std::string[2];
     read_parse_file(argv[1], base_pairs);
@@ -27,8 +27,8 @@ int main(int argc, char *argv[]) {
         result = sequence_alignment_basic(base_pairs[0], base_pairs[1]);
     // TODO: add mode check for sequence_alignment_efficient and get result
 
-    gettimeofday(&end, 0); // mark end time of execution
-    double total_memory = getTotalMemory(); // get memory usage
+    gettimeofday(&end, nullptr); // mark end time of execution
+    long total_memory = getTotalMemory(); // get memory usage
     double total_time = getExecTime(begin, end);
 
     std::cout << std::get<0>(result) << std::endl; // Cost of a minimum cost alignment
