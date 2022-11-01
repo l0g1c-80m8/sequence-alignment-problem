@@ -10,4 +10,4 @@ cmake ..
 make
 
 cd ..
-./build/seq "$1"
+./build/seq "$1" "basic"

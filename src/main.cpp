@@ -16,7 +16,10 @@ int main(int argc, char *argv[]) {
     std::cout << "Base pair 1: " << base_pairs[0] << std::endl;
     std::cout << "Base pair 2: " << base_pairs[1] << std::endl;
 
-    auto result = sequence_alignment_basic(base_pairs[0], base_pairs[1]);
+    auto result = std::tuple<int, std::string, std::string>({0, "", ""});
+    if (strcmp(argv[2], "basic") == 0)
+        result = sequence_alignment_basic(base_pairs[0], base_pairs[1]);
+    // TODO: add mode check for sequence_alignment_efficient and get result
 
     std::cout << std::get<0>(result) << std::endl; // Cost of a minimum cost alignment
     std::cout << std::get<1>(result) << std::endl; // Aligned sequence of string 1
