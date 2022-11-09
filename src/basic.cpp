@@ -9,15 +9,14 @@
 
 #include "costs.h"
 
-
 /**
- * Find the minimum-cost sequence alignment between two gene sequences.
+ * Find the minimum-cost of sub-problems for alignment of two sequences.
  *
  * @param seq1 Gene sequence 1 as string.
  * @param seq2 Gene sequence 2 as string.
- * @return the minimum cost of an alignment with the aligned sequences as a 3-tuple.
+ * @return the minimum cost table for all sub-problems of sequence alignment of two sequences.
  */
-std::tuple<int, std::string, std::string> sequence_alignment_basic(std::string seq1, std::string seq2) {
+std::vector<std::vector<int>> sequence_alignment(std::string seq1, std::string seq2) {
     // Get sizes of the two string sequences
     auto m = seq1.length();
     auto n = seq2.length();
@@ -40,9 +39,23 @@ std::tuple<int, std::string, std::string> sequence_alignment_basic(std::string s
                 dp[i][j - 1] + gap_penalty
             });
 
+    return dp;
+}
+
+/**
+ * Find the minimum-cost sequence alignment between two gene sequences.
+ *
+ * @param seq1 Gene sequence 1 as string.
+ * @param seq2 Gene sequence 2 as string.
+ * @return the minimum cost of an alignment with the aligned sequences as a 3-tuple.
+ */
+std::tuple<int, std::string, std::string> sequence_alignment_basic(std::string seq1, std::string seq2) {
+    // Get optimal solutions for the sub-problems
+    auto dp = sequence_alignment(seq1, seq2);
+
     // Backtrack through the sub-problems and construct the solution strings
-    auto i = m;
-    auto j = n;
+    auto i = seq1.length();
+    auto j = seq2.length();
     std::vector<char> aligned_seq1;
     std::vector<char> aligned_seq2;
 

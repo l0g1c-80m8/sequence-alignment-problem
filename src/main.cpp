@@ -4,6 +4,7 @@
 #include <sys/time.h>
 
 #include "basic.h"
+#include "efficient.h"
 #include "parse_file.h"
 #include "perf_measure.h"
 
@@ -24,8 +25,11 @@ int main(int argc, char *argv[]) {
 
     auto result = std::tuple<int, std::string, std::string>({0, "", ""}); // store result
     if (strcmp(argv[2], "basic") == 0)
-        result = sequence_alignment_basic(base_pairs[0], base_pairs[1]);
-    // TODO: add mode check for sequence_alignment_efficient and get result
+        result = sequence_alignment_basic("ATAG", "AGCT");
+    else if(strcmp(argv[2], "efficient") == 0)
+        result = sequence_alignment_efficient("ATAG", "AGCT");
+    else
+        return 0;
 
     gettimeofday(&end, nullptr); // mark end time of execution
     long total_memory = getTotalMemory(); // get memory usage
