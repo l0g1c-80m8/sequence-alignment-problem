@@ -25,9 +25,9 @@ int main(int argc, char *argv[]) {
 
     auto result = std::tuple<int, std::string, std::string>({0, "", ""}); // store result
     if (strcmp(argv[2], "basic") == 0)
-        result = sequence_alignment_basic("ATAG", "AGCT");
+        result = sequence_alignment_basic(base_pairs[0], base_pairs[1]);
     else if(strcmp(argv[2], "efficient") == 0)
-        result = sequence_alignment_efficient("ATAG", "AGCT");
+        result = sequence_alignment_efficient(base_pairs[0], base_pairs[1]);
     else
         return 0;
 

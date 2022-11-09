@@ -21,6 +21,8 @@ std::tuple<int, std::string, std::string> sequence_alignment_efficient(std::stri
     // Get sizes of the two string sequences
     auto m = seq1.length();
     auto n = seq2.length();
+    auto seq2_reverse = seq2;
+    std::reverse(seq2_reverse.begin(), seq2_reverse.end());
 
     if (m < 2 || n < 2) {
         return sequence_alignment_basic(seq1, seq2);
@@ -33,10 +35,8 @@ std::tuple<int, std::string, std::string> sequence_alignment_efficient(std::stri
     std::vector<int> cost_right(n + 1, 0);
 
     auto dp1 = sequence_alignment(seq1_left, seq2);
-    std::reverse(seq2.begin(), seq2.end());
     std::reverse(seq1_right.begin(), seq1_right.end());
-    auto dp2 = sequence_alignment(seq1_right, seq2);
-    std::reverse(seq2.begin(), seq2.end());
+    auto dp2 = sequence_alignment(seq1_right, seq2_reverse);
 
     // Find split point. We need to compare seq1_left with all variations of y and seq1_right with all variations of y
     // and then take the minimum of these to find our split point to recursively solve for the correct alignment.
@@ -51,16 +51,19 @@ std::tuple<int, std::string, std::string> sequence_alignment_efficient(std::stri
     }
 
     auto left_alignment = sequence_alignment_efficient(seq1_left, seq2.substr(0, idx));
-    auto right_alignment = sequence_alignment_efficient(seq1_right, seq2.substr(idx));
+    auto right = seq2.substr(idx);
+    std::reverse(right.begin(), right.end());
+    auto right_alignment = sequence_alignment_efficient(seq1_right, right);
 
+    auto right_alignment_seq_1 = std::get<1>(right_alignment);
     auto right_alignment_seq_2 = std::get<2>(right_alignment);
-//    std::reverse(right_alignment_seq_1.begin(), right_alignment_seq_1.end());
+    std::reverse(right_alignment_seq_1.begin(), right_alignment_seq_1.end());
     std::reverse(right_alignment_seq_2.begin(), right_alignment_seq_2.end());
 
 
     return {
             min,
-            std::get<1>(left_alignment) + std::get<1>(right_alignment),
-            std::get<2>(left_alignment) + std::get<2>(right_alignment),
+            std::get<1>(left_alignment) + right_alignment_seq_1,
+            std::get<2>(left_alignment) + right_alignment_seq_2,
         };
 }
