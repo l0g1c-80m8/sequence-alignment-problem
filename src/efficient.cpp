@@ -83,7 +83,7 @@ std::tuple<int, std::string, std::string> sequence_alignment_efficient(std::stri
         }
     }
 
-    // (Conquer step) Solve the problem recursively
+    // (Conquer step) Solve the sub-problems recursively
     auto left_alignment = sequence_alignment_efficient(seq1.substr(0, m / 2), seq2.substr(0, min_idx));
     auto right_alignment = sequence_alignment_efficient(seq1.substr(m / 2), seq2.substr(min_idx));
 
