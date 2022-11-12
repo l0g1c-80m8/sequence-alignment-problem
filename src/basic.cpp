@@ -9,8 +9,9 @@
 
 #include "costs.h"
 
+
 /**
- * Find the minimum-cost of sub-problems for alignment of two sequences.
+ * A dynamic programming based approach to find the minimum-cost of sub-problems for alignment of two sequences.
  *
  * @param seq1 Gene sequence 1 as string.
  * @param seq2 Gene sequence 2 as string.

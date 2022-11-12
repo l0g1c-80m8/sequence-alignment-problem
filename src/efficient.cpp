@@ -10,8 +10,16 @@
 #include "basic.h"
 #include "costs.h"
 
+
+/**
+ * A dynamic programming based approach to find the value of sequence alignment between two sequences.
+ *
+ * @param seq1 Gene sequence 1 as string.
+ * @param seq2 Gene sequence 2 as string.
+ * @return the minimum cost of an alignment with the aligned sequences as a 3-tuple.
+ */
 std::vector<int> space_efficient_sequence_alignment(std::string seq1, std::string seq2, bool reverse = false) {
-    // Reverse strings if required
+    // Reverse strings if required before further processing
     if (reverse) {
         std::reverse(seq1.begin(), seq1.end());
         std::reverse(seq2.begin(), seq2.end());
@@ -21,17 +29,17 @@ std::vector<int> space_efficient_sequence_alignment(std::string seq1, std::strin
     auto m = seq1.length();
     auto n = seq2.length();
 
-    // Initialize all cost vectors to store alignment cost of seq 1 with all lengths of seq 2
+    // Initialize cost vectors to store alignment cost of seq 1 with all of seq 2
     std::vector<int> prev_costs(n + 1, 0);
     std::vector<int> costs(n + 1, 0);
 
-    // Initialize values for trivial solution - string of size 0 mismatches all chars from other string
+    // Initialize values for trivial solution (none of seq 1 is matched with seq 2)
     for (int i = 0; i <= n; i++)
         prev_costs[i] = i * gap_penalty;
 
-    // Find the cost of alignment of seq 1 with all lengths of seq 2
+    // Find the costs of alignment of parts of seq 1 with all of seq 2
     for (int i = 1; i <= m; i++) {
-        costs[0] = i * gap_penalty;
+        costs[0] = i * gap_penalty; // Required for trivial solution (seq 1 is matched with none of seq2)
         for (int j = 1; j <= n; j++)
             costs[j] = std::min({
                 prev_costs[j - 1] + mismatch_penalties[{seq1.at(i - 1), seq2.at(j - 1)}],
@@ -45,7 +53,7 @@ std::vector<int> space_efficient_sequence_alignment(std::string seq1, std::strin
 }
 
 /**
- * Find the minimum-cost sequence alignment between two gene sequences.
+ * A divide and conquer based approach to find the minimum-cost sequence alignment between two gene sequences.
  *
  * @param seq1 Gene sequence 1 as string.
  * @param seq2 Gene sequence 2 as string.
@@ -60,6 +68,7 @@ std::tuple<int, std::string, std::string> sequence_alignment_efficient(std::stri
     if (m < 3 || n < 3)
         return sequence_alignment_basic(seq1, seq2);
 
+    // (Divide step) Split seq 1 in two equal halves and find split point in seq 2
     auto left_alignment_costs = space_efficient_sequence_alignment(seq1.substr(0, m / 2), seq2, false);
     auto right_alignment_costs = space_efficient_sequence_alignment(seq1.substr(m / 2), seq2, true);
 
@@ -74,9 +83,11 @@ std::tuple<int, std::string, std::string> sequence_alignment_efficient(std::stri
         }
     }
 
+    // (Conquer step) Solve the problem recursively
     auto left_alignment = sequence_alignment_efficient(seq1.substr(0, m / 2), seq2.substr(0, min_idx));
     auto right_alignment = sequence_alignment_efficient(seq1.substr(m / 2), seq2.substr(min_idx));
 
+    // (Combine step) Concatenate the strings to generate the full sequence
     return {
         std::get<0>(left_alignment) + std::get<0>(right_alignment),
         std::get<1>(left_alignment) + std::get<1>(right_alignment),
