@@ -17,7 +17,6 @@ std::vector<int> space_efficient_sequence_alignment(std::string seq1, std::strin
         std::reverse(seq2.begin(), seq2.end());
     }
 
-
     // Get sizes of the two string sequences
     auto m = seq1.length();
     auto n = seq2.length();
@@ -27,13 +26,11 @@ std::vector<int> space_efficient_sequence_alignment(std::string seq1, std::strin
     std::vector<int> costs(n + 1, 0);
 
     // Initialize values for trivial solution - string of size 0 mismatches all chars from other string
-    for (int i = 0; i <= n; i++) {
-        costs[i] = i * gap_penalty;
+    for (int i = 0; i <= n; i++)
         prev_costs[i] = i * gap_penalty;
-    }
 
     // Find the cost of alignment of seq 1 with all lengths of seq 2
-    for (int i = 1; i <=m; i++) {
+    for (int i = 1; i <= m; i++) {
         costs[0] = i * gap_penalty;
         for (int j = 1; j <= n; j++)
             costs[j] = std::min({
@@ -60,9 +57,8 @@ std::tuple<int, std::string, std::string> sequence_alignment_efficient(std::stri
     auto n = seq2.length();
 
     // Solve small problems trivially
-    if (m < 3 || n < 3) {
+    if (m < 3 || n < 3)
         return sequence_alignment_basic(seq1, seq2);
-    }
 
     auto left_alignment_costs = space_efficient_sequence_alignment(seq1.substr(0, m / 2), seq2, false);
     auto right_alignment_costs = space_efficient_sequence_alignment(seq1.substr(m / 2), seq2, true);
@@ -80,12 +76,6 @@ std::tuple<int, std::string, std::string> sequence_alignment_efficient(std::stri
 
     auto left_alignment = sequence_alignment_efficient(seq1.substr(0, m / 2), seq2.substr(0, min_idx));
     auto right_alignment = sequence_alignment_efficient(seq1.substr(m / 2), seq2.substr(min_idx));
-
-    auto right_alignment_seq_1 = std::get<1>(right_alignment);
-    auto right_alignment_seq_2 = std::get<2>(right_alignment);
-    std::reverse(right_alignment_seq_1.begin(), right_alignment_seq_1.end());
-    std::reverse(right_alignment_seq_2.begin(), right_alignment_seq_2.end());
-
 
     return {
         std::get<0>(left_alignment) + std::get<0>(right_alignment),
