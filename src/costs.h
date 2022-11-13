@@ -8,9 +8,9 @@
 #include <map>
 #include <tuple>
 
-int gap_penalty = 30;
+inline int gap_penalty = 30;
 
-std::map<std::tuple<char, char>, int> mismatch_penalties = {
+inline std::map<std::tuple<char, char>, int> mismatch_penalties = {
         {{'A', 'A'}, 0},
         {{'A', 'C'}, 110},
         {{'A', 'G'}, 48},

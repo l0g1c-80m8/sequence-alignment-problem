@@ -1,4 +1,4 @@
-#include "parse_file.h"
+#include "file_utils.h"
 #include <fstream>
 
 void read_parse_file(const std::string& path, std::string base_pairs[2]) {
@@ -33,4 +33,21 @@ void read_parse_file(const std::string& path, std::string base_pairs[2]) {
     base_pairs[1] = base_pairs[currBasePairIdx];
 
     is.close();
+}
+
+void write_file(const std::string& out_path, std::tuple<int, std::string, std::string> result, long total_memory, double total_time) {
+    std::ofstream os;
+    os.open(out_path, std::fstream::out | std::fstream::trunc);
+    if(os.fail()) {
+        std::cerr << "Error: failed to write to file: " << out_path << std::endl;
+        return;
+    }
+
+    os << std::get<0>(result) << std::endl; // Write cost
+    os << std::get<1>(result) << std::endl; // Write aligned sequence 1
+    os << std::get<2>(result) << std::endl; // Write aligned sequence 2
+    os << total_time << std::endl; // Write execution time (ms)
+    os << total_memory << std::endl; // Write total memory usage (bytes)
+
+    os.close();
 }
