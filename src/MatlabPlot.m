@@ -13,8 +13,8 @@ probsize = [16,64,128,256,384,512,768,1024,1280,1536,2048,2560,3072,3584,3968];
 %ylabel("Time (ms)")
 %legend({"Basic", "Efficient"}, "Location", "northwest");
 
-plot(probsize, bmem, probsize, emem);
-title("Plot of Max Memory Usage (bytes) vs Problem Size")
-xlabel("Problem Size")
-ylabel("Max Memory Usage (bytes)")
-legend({"Basic", "Efficient"}, "Location", "northwest");
+plot(probsize, bmem / 1024, probsize, emem / 1024);
+%title("Plot of Max Memory Usage (KB) vs Problem Size")
+%xlabel("Problem Size")
+%ylabel("Max Memory Usage (KB)")
+%legend({"Basic", "Efficient"}, "Location", "northwest");
