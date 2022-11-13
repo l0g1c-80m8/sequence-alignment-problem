@@ -1,4 +1,4 @@
-if [ "$#" -ne 1 ]; then
+if [ "$#" -ne 2 ]; then
     echo "Illegal number of parameters"
     exit 1;
 fi
@@ -10,4 +10,4 @@ cmake ..
 make
 
 cd ..
-./build/seq "$1" "efficient"
+./build/seq "$1" "$2" "efficient"
