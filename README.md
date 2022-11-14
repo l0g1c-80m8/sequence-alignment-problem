@@ -1,7 +1,7 @@
 # CSCI 571 Project: Sequence Alignment Problem
 
 ## Basic Build Instructions
-From the project root, execute `./basic.sh <input_file_path>` or `./efficient.sh <input_file_path>` to perform a clean build and run the program.
+From the project root, execute `./basic.sh <input_file_path> <output_file_path>` or `./efficient.sh <input_file_path> <output_file_path>` to perform a clean build and run the program.
 
 ## Comprehensive Build Instructions
 1. Clone this repo.
