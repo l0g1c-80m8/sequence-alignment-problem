@@ -7,7 +7,7 @@ From the project root, execute `./basic.sh <input_file_path> <output_file_path>`
 1. Clone this repo.
 2. Make a build directory in the top level directory: `mkdir build && cd build`
 3. Compile: `cmake .. && make`
-4. Run it: `./seq <input_file_path> <'basic' | 'efficient'>`
+4. Run it: `./<basic | efficient>.sh <input_file_path> <'basic' | 'efficient'>`
 
 ## Results
 
